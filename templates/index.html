@@ -17,9 +17,9 @@
             <div class="mdl-layout-spacer"></div>
             <nav class="mdl-navigation mdl-layout--large-screen-only">
                 <a class="mdl-navigation__link" href="">Source code</a>
-                <a class="mdl-navigation__link" href="">Author</a>
+                <a class="mdl-navigation__link" href="https://vk.com/bionic.leha">Author</a>
                 <a class="mdl-navigation__link" href="">F.A.Q</a>
-                <a class="mdl-navigation__link" href="">Main Site</a>
+                <a class="mdl-navigation__link" href="https://farbio.xyz">Main Site</a>
             </nav>
         </div>
     </header>
@@ -129,7 +129,7 @@
                         </div>
                         <div class="mdl-card__supporting-text">
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
-                                <input type="checkbox" id="switch-1" class="mdl-switch__input" disabled>
+                                <input type="checkbox" id="switch-1" name="save_cookie" value="true" class="mdl-switch__input">
                                 <span class="mdl-switch__label">Save user info in your cookies</span>
                             </label>
                         </div>
@@ -156,7 +156,11 @@
         </div>
     </main>
 </div>
-<link rel="stylesheet" href=https://fonts.googleapis.com/icon?family=Material+Icons>
 <script defer src="{{ url_for('static', filename='material.min.js') }}"></script>
+<link rel="stylesheet" href=https://fonts.googleapis.com/icon?family=Material+Icons>
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js></script>
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
 </body>
 </html>
