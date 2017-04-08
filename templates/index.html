@@ -56,20 +56,24 @@
                     .my-card-wide .mdl-textfield {
                         width: 380px;
                     }
+
+                    .my-card-wide .p-bar {
+                        display: none;
+                    }
                 </style>
 
                 <div class="my-card-wide mdl-card mdl-shadow--2dp">
-                    <form method="post">
+                    <form id="auth_form" method="post">
                         <div class="mdl-card__title"><h2 class="mdl-card__title-text">Auth VK</h2></div>
                         <div class="mdl-card__supporting-text">This app requesting token from official mobileclients
                         </div>
                         <div class="mdl-card__supporting-text text_input">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" name="login" id="inp_log">
+                                <input class="mdl-textfield__input" type="text" name="login" id="inp_log" required>
                                 <label class="mdl-textfield__label" for="inp_log">Phone or email</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="password" name="pass" id="inp_pass">
+                                <input class="mdl-textfield__input" type="password" name="pass" id="inp_pass" required>
                                 <label class="mdl-textfield__label" for="inp_pass">Password</label>
                             </div>
                         </div>
@@ -113,7 +117,7 @@
                                 <div class="mdl-cell--4-col">
                                     <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-7">
                                         <input type="checkbox" name="scope" value="status" id="checkbox-7"
-                                               class="mdl-checkbox__input">
+                                               class="mdl-checkbox__input" checked>
                                         <span class="mdl-checkbox__label">Status</span>
                                     </label>
                                     <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-8">
@@ -132,11 +136,14 @@
                         </div>
                         <div class="mdl-card__supporting-text"><span class="typo-styles__name">Your token will not be saved or used by me</span>
                         </div>
+                        <div class="mdl-card__supporting-text p-bar" id="prog-bar">
+                            <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                        </div>
                         <div class="mdl-card__actions mdl-card--border">
                             <div class="mdl-layout-spacer"></div>
                             <input type="submit" name="auth_vk"
                                    class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                                   value="Get VK Android token">
+                                   value="Get VK Android token" onclick="document.getElementById('prog-bar').style.display = 'block'">
                         </div>
                         <div class="mdl-card__menu">
                             <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
