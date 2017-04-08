@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test page</title>
+</head>
+<body>
+<h3>Android VK Auth</h3>
+<h4>Return to you token with all scopes</h4>
+<form method="post">
+    <input type="text" name="login" placeholder="Phone/email" required="">
+    <input type="password" name="pass" placeholder="Password" required="">
+    <br><br>
+    Scopes:
+    <br><div style="display: grid; grid-template-columns: 25px 80px 25px 0;">
+        <input type="checkbox" name="scope" value="messages">Messages
+        <input type="checkbox" name="scope" value="photos">Photos
+        <input type="checkbox" name="scope" value="friends">Friends
+        <input type="checkbox" name="scope" value="audio">Audio
+        <input type="checkbox" name="scope" value="video">Video
+        <input type="checkbox" name="scope" value="wall">Wall
+        <input type="checkbox" name="scope" value="status">Status
+        <input type="checkbox" name="scope" value="offline">Offline
+    </div><br>
+    Your token will not be saved or used by me
+    <br><br>
+    <input type="submit" name="auth_vk" value="Get VK Android token">
+</form>
+</body>
+</html>

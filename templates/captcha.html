@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Captcha - VK Auth</title>
+</head>
+<body>
+<h4>Too many requests, please, enter captcha:</h4>
+<img src="{{c_img}}">
+<form method="post">
+    <input type="text" name="c_key" placeholder="Captcha from picture" required="">
+    <input type="hidden" name="c_sid" value="{{c_sid}}">
+    <input type="hidden" name="auth_data" value="{{auth_data}}">
+    <input type="submit" name="send_captcha" value="Send Captcha">
+</form>
+</body>
+</html>
