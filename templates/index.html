@@ -1,18 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--suppress ALL -->
+<html lang="en" class="mdl-js">
 <head>
     <meta charset="UTF-8">
-    <title>Test page</title>
+    <meta name="description" content="Get token from VK Android app.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>VK App Token Requestor</title>
+    <!--<link rel="stylesheet" href=https://fonts.googleapis.com/icon?family=Material+Icons>-->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='material.min.css') }}">
 </head>
 <body>
-<h3>Android VK Auth</h3>
-<h4>Return to you token with all scopes</h4>
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">VK App Token Requestor</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation mdl-layout--large-screen-only">
+                <a class="mdl-navigation__link" href="">Source code</a>
+                <a class="mdl-navigation__link" href="">Author</a>
+                <a class="mdl-navigation__link" href="">F.A.Q</a>
+                <a class="mdl-navigation__link" href="">Main Site</a>
+            </nav>
+        </div>
+    </header>
+    <!--<div class="mdl-layout__drawer">-->
+    <!--<span class="mdl-layout-title">Title</span>-->
+    <!--<nav class="mdl-navigation">-->
+    <!--<a class="mdl-navigation__link" href="">Link 1</a>-->
+    <!--<a class="mdl-navigation__link" href="">Link 2</a>-->
+    <!--<a class="mdl-navigation__link" href="">Link 3</a>-->
+    <!--<a class="mdl-navigation__link" href="">Link 4</a>-->
+    <!--</nav>-->
+    <!--</div>-->
+    <main class="mdl-layout__content mdl-color-text--grey-600">
+        <div class="page-content">
+            <div class="mdl-grid mdl-cell--4-col">
+                <div class="names">
+                    <div class="mdl-typography--headline">Android VK Auth</div>
+                    <div class="mdl-typography--title">Return to you token with all scopes</div>
+                </div>
+                <div class="form">
+                    <form method="post">
+                        <input type="text" name="login" placeholder="Phone/email" required="">
+                        <input type="password" name="pass" placeholder="Password" required="">
+                        <br><br>
+                        Scopes:
+                        <br>
+                        <div class="mdl-grid">
+                            <div class="mdl-cell--4-col">
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+                                    <input type="checkbox" name="scope" value="messages" id="checkbox-1"
+                                           class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label">Messages</span>
+                                </label>
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+                                    <input type="checkbox" name="scope" value="photos" id="checkbox-2"
+                                           class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label">Photos</span>
+                                </label>
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-3">
+                                    <input type="checkbox" name="scope" value="friends" id="checkbox-3"
+                                           class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label">Friends</span>
+                                </label>
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-4">
+                                    <input type="checkbox" name="scope" value="audio" id="checkbox-4"
+                                           class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label">Audio</span>
+                                </label>
+                            </div>
+                            <!--mdl-cell mdl-cell&#45;&#45;4-col-->
+                            <div class="mdl-cell--4-col">
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-5">
+                                    <input type="checkbox" name="scope" value="video" id="checkbox-5"
+                                           class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label">Video</span>
+                                </label>
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-6">
+                                    <input type="checkbox" name="scope" value="wall" id="checkbox-6"
+                                           class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label">Wall</span>
+                                </label>
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-7">
+                                    <input type="checkbox" name="scope" value="status" id="checkbox-7"
+                                           class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label">Status</span>
+                                </label>
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-8">
+                                    <input type="checkbox" name="scope" value="offline" id="checkbox-8"
+                                           class="mdl-checkbox__input">
+                                    <span class="mdl-checkbox__label">Offline</span>
+                                </label>
+                            </div>
+                        </div>
+                        <br>
+                        Your token will not be saved or used by me
+                        <br><br>
+                        <input type="submit" name="auth_vk"
+                               class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored"
+                               value="Get VK Android token">
+                    </form>
+                </div>
+                <style>.demo-card-wide.mdl-card {width: 512px;}.demo-card-wide > .mdl-card__title {color: #fff;height: 176px;
+                        background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;}
+                    .demo-card-wide > .mdl-card__menu {color: #fff;}</style>
+
+                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title"><h2 class="mdl-card__title-text">Auth VK</h2></div>
+                    <div class="mdl-card__supporting-text">Return to you token with all scopes</div>
+
+
+
+                    <div class="mdl-card__supporting-text">Return to you token with all scopes</div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <input type="submit" name="auth_vk"
+                               class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                               value="Get VK Android token">
+                    </div>
+                    <div class="mdl-card__menu">
+                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                            <i class="material-icons">share</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<!--
+<div class="mdl-typography--headline">Android VK Auth</div>
+<div class="mdl-typography--title">Return to you token with all scopes</div>
 <form method="post">
     <input type="text" name="login" placeholder="Phone/email" required="">
     <input type="password" name="pass" placeholder="Password" required="">
     <br><br>
     Scopes:
-    <br><div style="display: grid; grid-template-columns: 25px 80px 25px 0;">
+    <br>
+    <div style="display: grid; grid-template-columns: 25px 80px 25px 0;">
         <input type="checkbox" name="scope" value="messages">Messages
         <input type="checkbox" name="scope" value="photos">Photos
         <input type="checkbox" name="scope" value="friends">Friends
@@ -21,10 +149,13 @@
         <input type="checkbox" name="scope" value="wall">Wall
         <input type="checkbox" name="scope" value="status">Status
         <input type="checkbox" name="scope" value="offline">Offline
-    </div><br>
+    </div>
+    <br>
     Your token will not be saved or used by me
     <br><br>
     <input type="submit" name="auth_vk" value="Get VK Android token">
 </form>
+-->
+<script defer src="{{ url_for('static', filename='material.min.js') }}"></script>
 </body>
 </html>
