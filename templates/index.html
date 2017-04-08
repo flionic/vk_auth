@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" class="mdl-js">
 <head>
-    <title>VK App Token Requestor</title>
-    <meta name="description" content="Get token from VK Android app.">
+    <title>VK Token Requestor App</title>
+    <meta name="description" content="Get token from VK mobile app.">
     <meta charset="UTF-8">
+    <meta name="author" content="Aleksey Fakhrutdinov">
+    <meta name="copyright" lang="en" content="Bionic Inc">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="theme-color" content="#303F9F">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='material.min.css') }}">
@@ -97,14 +99,13 @@
                             <div class="mdl-grid">
                                 <div class="mdl-cell--4-col">
                                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                                        <input type="radio" id="option-1" class="mdl-radio__button" name="app_name"
-                                               value="android"
-                                               checked>
+                                        <input type="radio" id="option-1" name="app_name" value="android"
+                                               class="mdl-radio__button" checked>
                                         <span class="mdl-radio__label">Android</span>
                                     </label>
                                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                        <input type="radio" id="option-2" class="mdl-radio__button" name="app_name"
-                                               value="iphone">
+                                        <input type="radio" id="option-2" name="app_name" value="iphone"
+                                               class="mdl-radio__button">
                                         <span class="mdl-radio__label">iPhone</span>
                                     </label>
                                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
@@ -129,7 +130,8 @@
                         </div>
                         <div class="mdl-card__supporting-text">
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
-                                <input type="checkbox" id="switch-1" name="save_cookie" value="true" class="mdl-switch__input">
+                                <input type="checkbox" id="switch-1" name="save_cookie" value="true"
+                                       class="mdl-switch__input">
                                 <span class="mdl-switch__label">Save user info in your cookies</span>
                             </label>
                         </div>
@@ -142,7 +144,7 @@
                             <div class="mdl-layout-spacer"></div>
                             <input type="submit" name="auth_vk"
                                    class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                                   value="Get VK Android token"
+                                   value="Get token"
                                    onclick="document.getElementById('prog-bar').style.display = 'block'">
                         </div>
                         <div class="mdl-card__menu">
@@ -160,7 +162,12 @@
 <link rel="stylesheet" href=https://fonts.googleapis.com/icon?family=Material+Icons>
 <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js></script>
 <script type=text/javascript>
-  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    $SCRIPT_ROOT = {
+    {
+        request.script_root | tojson | safe
+    }
+    }
+    ;
 </script>
 </body>
 </html>
