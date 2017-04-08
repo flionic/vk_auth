@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" class="mdl-js">
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Get token from VK Android app.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>VK App Token Requestor</title>
+    <meta name="description" content="Get token from VK Android app.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="theme-color" content="#303F9F">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='material.min.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -92,9 +93,44 @@
                             </div>
                         </div>
                         <div class="mdl-card__supporting-text">
+                            Select app:
+                            <div class="mdl-grid">
+                                <div class="mdl-cell--4-col">
+                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                                        <input type="radio" id="option-1" class="mdl-radio__button" name="app_name"
+                                               value="android"
+                                               checked>
+                                        <span class="mdl-radio__label">Android</span>
+                                    </label>
+                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                                        <input type="radio" id="option-2" class="mdl-radio__button" name="app_name"
+                                               value="iphone">
+                                        <span class="mdl-radio__label">iPhone</span>
+                                    </label>
+                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+                                        <input type="radio" id="option-3" class="mdl-radio__button" name="app_name"
+                                               value="ipad">
+                                        <span class="mdl-radio__label">iPad</span>
+                                    </label>
+                                </div>
+                                <div class="mdl-cell--4-col">
+                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-4">
+                                        <input type="radio" id="option-4" class="mdl-radio__button" name="app_name"
+                                               value="windowsphone">
+                                        <span class="mdl-radio__label">WindowsPhone</span>
+                                    </label>
+                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-5">
+                                        <input type="radio" id="option-5" class="mdl-radio__button" name="app_name"
+                                               value="windows">
+                                        <span class="mdl-radio__label">Windows</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mdl-card__supporting-text">
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
                                 <input type="checkbox" id="switch-1" class="mdl-switch__input" disabled>
-                                <span class="mdl-switch__label">Save login status in cookies</span>
+                                <span class="mdl-switch__label">Save user info in your cookies</span>
                             </label>
                         </div>
                         <div class="mdl-card__supporting-text"><span class="typo-styles__name">Your token will not be saved or used by me</span>
