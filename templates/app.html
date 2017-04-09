@@ -104,11 +104,26 @@
                             </label>
                         </div>
                     </div>
+                    <div class="mdl-grid">
+                        <div class="mdl-cell--4-col" id="2fa-c">
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cb2fa">
+                                <input type="checkbox" name="cb2fa" class="mdl-checkbox__input" id="cb2fa">
+                                <span class="mdl-checkbox__label">Need 2FA</span>
+                            </label>
+                        </div>
+                        <div class="mdl-cell--4-col p-bar" id="2fa-i">
+                            {{ mdl.input_text('2FA Code', params='name=code pattern=(^[0-9]{6}$)') }}
+                        </div>
+                    </div>
                 </div>
                 <div class="mdl-card__supporting-text">
                     <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate p-bar" id="pbar"></div>
+                    <div class="p-bar">
+                        <img src="" id="captcha_img">
+                        {{ mdl.input_text('Captcha', params='name=captcha pattern=(^{4,}$)') }}
+                    </div>
                     <span class="mdl-chip mdl-chip--contact mdl-chip--deletable p-bar" id="chip">
-                        <img class="mdl-chip__contact" id="photo" src="https://pp.userapi.com/c630225/v630225867/3ee69/TjqnhpUUt7c.jpg">
+                        <img class="mdl-chip__contact" id="photo" src="">
                         <span class="mdl-chip__text" id="name"></span>
                         <a href="#" id="del_chip" class="mdl-chip__action"><i class="material-icons">cancel</i></a>
                     </span>
@@ -130,6 +145,12 @@
 
 {% block scripts %}
 <script type=text/javascript>
+   $('#cb2fa').click(function () {
+        if ($(this).is(':checked')) {
+            $('#2fa-i').css("display", "block");
+            $('#2fa-c').css("display", "none");
+        }
+    });
     $('#del_chip').click(function () {
         $('#chip').css("display", "none");
         $('#token').text('Have nice day, bro');

@@ -70,8 +70,8 @@
 <div class="mdl-card__supporting-text {{ class }}">{{ text }}</div>
 {%- endmacro %}
 
-{%- macro input_text(text, params='')  -%}
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+{%- macro input_text(text, class='', params='')  -%}
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label {{ class }}">
     <input class="mdl-textfield__input" {{ params }}>
     <label class="mdl-textfield__label">{{ text }}</label>
 </div>
