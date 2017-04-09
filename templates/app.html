@@ -83,6 +83,11 @@
                                        class="mdl-checkbox__input">
                                 <span class="mdl-checkbox__label">Market</span>
                             </label>
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-12">
+                                <input type="checkbox" name="scope" value="pages" id="checkbox-12"
+                                       class="mdl-checkbox__input">
+                                <span class="mdl-checkbox__label">Pages</span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -127,7 +132,8 @@
                             </label>
                         </div>
                         <div class="mdl-cell--4-col p-bar" id="2fa-i">
-                            {{ mdl.input_text('2FA Code', params='name=2fa_supported=1&code pattern=(^[0-9]{6}$)') }}
+                            <input type="hidden" name="2fa_supported=1">
+                            {{ mdl.input_text('2FA Code', params='name=code pattern=(^[0-9]{6}$)') }}
                         </div>
                     </div>
                 </div>
