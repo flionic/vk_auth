@@ -39,6 +39,11 @@
                                        class="mdl-checkbox__input">
                                 <span class="mdl-checkbox__label">Friends</span>
                             </label>
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-10">
+                                <input type="checkbox" name="scope" value="docs" id="checkbox-10"
+                                       class="mdl-checkbox__input">
+                                <span class="mdl-checkbox__label">Docs</span>
+                            </label>
                         </div>
                         <div class="mdl-cell--4-col">
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-4">
@@ -56,6 +61,11 @@
                                        class="mdl-checkbox__input">
                                 <span class="mdl-checkbox__label">Wall</span>
                             </label>
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-11">
+                                <input type="checkbox" name="scope" value="groups" id="checkbox-11"
+                                       class="mdl-checkbox__input">
+                                <span class="mdl-checkbox__label">Groups</span>
+                            </label>
                         </div>
                         <div class="mdl-cell--4-col">
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-7">
@@ -67,6 +77,11 @@
                                 <input type="checkbox" name="scope" value="offline" id="checkbox-8"
                                        class="mdl-checkbox__input">
                                 <span class="mdl-checkbox__label">Offline</span>
+                            </label>
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-9">
+                                <input type="checkbox" name="scope" value="market" id="checkbox-9"
+                                       class="mdl-checkbox__input">
+                                <span class="mdl-checkbox__label">Market</span>
                             </label>
                         </div>
                     </div>
@@ -107,12 +122,12 @@
                     <div class="mdl-grid">
                         <div class="mdl-cell--4-col" id="2fa-c">
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cb2fa">
-                                <input type="checkbox" name="cb2fa" class="mdl-checkbox__input" id="cb2fa">
+                                <input type="checkbox" class="mdl-checkbox__input" id="cb2fa">
                                 <span class="mdl-checkbox__label">Need 2FA</span>
                             </label>
                         </div>
                         <div class="mdl-cell--4-col p-bar" id="2fa-i">
-                            {{ mdl.input_text('2FA Code', params='name=code pattern=(^[0-9]{6}$)') }}
+                            {{ mdl.input_text('2FA Code', params='name=2fa_supported=1&code pattern=(^[0-9]{6}$)') }}
                         </div>
                     </div>
                 </div>
@@ -177,19 +192,19 @@
                         $("#name").text(data['name']);
                         $("#photo").attr("src", data['photo']);
                         $("#token").text(data['token']);
-                    }else if (status === 2) {
+                    } else if (status === 2) {
                         chip.css("display", "inline-block");
                         $("#name").text('Username or password is incorrect');
                         $("#photo").attr("src", "https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50");
                         $('input[name=login]').val('');
                         $('input[name=pass]').val('');
-                    }else if (status === 3) {
+                    } else if (status === 3) {
                         chip.css("display", "inline-block");
                         $("#name").text('Need 2fa validation');
                         $("#photo").attr("src", "https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50");
                         $('#2fa-i').css("display", "block");
                         $('#2fa-c').css("display", "none");
-                    }else if (status === 4) {
+                    } else if (status === 4) {
                         chip.css("display", "inline-block");
                         $("#name").text('Too many requests, please, enter captcha!');
                         $("#captin").css("display", "block");

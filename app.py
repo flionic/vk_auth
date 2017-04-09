@@ -30,8 +30,9 @@ def auth_vk():
         if 'access_token' in auth_resp:
             getu_resp = requests.get(f'https://api.vk.com/method/users.get?user_id={auth_resp["user_id"]}&fields=photo_50').json()['response'][0]
             return jsonify(status=1, token=auth_resp['access_token'], uid=auth_resp['user_id'], temp=scopes,
-                                   name=f'{getu_resp["first_name"]} {getu_resp["last_name"]}', photo=getu_resp["photo_50"], appname=vkapp)
+                                   name=f'{getu_resp["first_name"]} {getu_resp["last_name"]}', photo=getu_resp["photo_50"])
         elif 'error' in auth_resp:
+            print(auth_resp)
             if 'invalid_client' in auth_resp['error']:
                 return jsonify(status=2)
             if 'need_validation' in auth_resp['error']:
@@ -41,8 +42,7 @@ def auth_vk():
             if 'error_description' in auth_resp:
                 return jsonify(status=5, err_name=auth_resp['error'], err_desc=auth_resp['error_description'])
     except Exception as excp:
-        print(auth_resp)
-        return jsonify(auth_resp)
+        return jsonify(exception=excp)
     return abort(403)
 
 
