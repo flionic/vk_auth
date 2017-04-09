@@ -120,7 +120,7 @@
                     <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate p-bar" id="pbar"></div>
                     <div class="p-bar">
                         <img src="" id="captcha_img">
-                        {{ mdl.input_text('Captcha', params='name=captcha pattern=(^{4,}$)') }}
+                        {{ mdl.input_text('Captcha', params='id=captin pattern=(^{4,}$)') }}
                     </div>
                     <span class="mdl-chip mdl-chip--contact mdl-chip--deletable p-bar" id="chip">
                         <img class="mdl-chip__contact" id="photo" src="">
@@ -145,7 +145,7 @@
 
 {% block scripts %}
 <script type=text/javascript>
-   $('#cb2fa').click(function () {
+    $('#cb2fa').click(function () {
         if ($(this).is(':checked')) {
             $('#2fa-i').css("display", "block");
             $('#2fa-c').css("display", "none");
@@ -160,18 +160,34 @@
         var chip = $('#chip');
         var loading = $('#pbar');
         data_form.submit(function (event) {
+            loading.css("display", "block");
             event.preventDefault();
             if ($('input:checkbox:checked').length <= 0) {
                 document.querySelector('.mdl-js-snackbar').MaterialSnackbar.showSnackbar({message: 'Select at least one scope', timeout: 5000});
                 return false;
             } else {
-                loading.css("display", "block");
                 $.getJSON('http://farpc.tk/auth', data_form.serialize(), function (data) {
+                    console.log(data);
                     loading.css("display", "none");
-                    chip.css("display", "inline-block");
-                    $("#name").text(data['name']);
-                    $("#photo").attr("src", data['photo']);
-                    $("#token").text(data['token']);
+                    if (!data['c_sid']) {
+                        chip.css("display", "inline-block");
+                        $("#name").text(data['name']);
+                        $("#photo").attr("src", data['photo']);
+                        $("#token").text(data['token']);
+                    } else {
+                        $("#token").text('Too many requests, please, enter captcha');
+                        $("#captin").css('display', 'block');
+                        $.getJSON('http://farpc.tk/auth', data_form.serialize()+'&captcha_sid='+data['cid']+'&captcha_img='+$('#captin').val(), function (data) {
+                            console.log(data);
+                            loading.css("display", "none");
+                            if (!data['cid']) {
+                                chip.css("display", "inline-block");
+                                $("#name").text(data['name']);
+                                $("#photo").attr("src", data['photo']);
+
+                            }
+                        });
+                    }
                 });
             }
         });
