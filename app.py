@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, current_app
+from flask import Flask, request, redirect, render_template, current_app, abort
 import requests
 import os
 import threading
@@ -14,8 +14,8 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
+def index_page():
+    return render_template('app.html')
 
 
 @app.route('/', methods=['POST'])
@@ -42,8 +42,11 @@ def vk_auth():
     except Exception as excp:
         return f'¯\_(ツ)_/¯ <br> {excp}'
 
+
 def web_process():
     if __name__ == '__main__':
+        app.jinja_env.line_statement_prefix = '%'
+        app.jinja_env.add_extension('jinja2.ext.do')
         app.run(debug=True, host=os.environ.get('address', '0.0.0.0'), port=int(os.environ.get('PORT', 80)))
 
 

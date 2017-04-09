@@ -9,7 +9,7 @@ body {
 .my-card-wide > form > .mdl-card__title {
     color: #fff;
     height: 176px;
-    background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;
+    /* background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover; */
 }
 
 .my-card-wide > form > .mdl-card__menu {

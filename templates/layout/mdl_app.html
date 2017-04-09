@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="mdl-js">
+<head>
+    <title>{{ app_name }} - Bionic App</title>
+    <meta name="description" content="{{ description }}">
+    <meta charset="UTF-8">
+    <meta name="author" content="Aleksey Fakhrutdinov">
+    <meta name="copyright" lang="en" content="Bionic Inc">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="theme-color" content="{{ theme_color }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='material.min.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <style>.my-card-wide > form > .mdl-card__title {
+        background: url({{ app_img }}) center / cover;
+    }</style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title">{{ app_name }}</span>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation mdl-layout--large-screen-only">
+                <a class="mdl-navigation__link" href="https://farbio.xyz">Main Site</a>
+                {% for caption, href in navlnk %}
+                <a class="mdl-navigation__link" href="{{ href }}">{{ caption }}</a>
+                {% endfor %}
+                {% block header_nav %}
+                {% endblock %}
+            </nav>
+        </div>
+    </header>
+    <main class="mdl-layout__content mdl-color-text--grey-600">
+        {% block app_card %}
+        <div class="page-content">
+            <div class="mdl-grid mdl-cell--4-col">
+                <div class="my-card-wide mdl-card mdl-shadow--2dp">
+                    <form method="post">
+                        <div class="mdl-card__title"><h2 class="mdl-card__title-text">{{ app_title }}</h2></div>
+                        <div class="mdl-card__supporting-text">{{ app_descr }}</div>
+                        <div class="mdl-card__supporting-text p-bar" id="prog-bar">
+                            <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            {% if card_btn %}
+                            <button type="submit" name="auth_vk" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">{{ card_btn }}</button>
+                            {% endif %}
+                        </div>
+                        <div class="mdl-snackbar mdl-js-snackbar">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action" type="button"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endblock app_card %}
+        {% block main %}{% endblock main %}
+    </main>
+</div>
+<script defer src="{{ url_for('static', filename='material.min.js') }}"></script>
+<link rel="stylesheet" href=https://fonts.googleapis.com/icon?family=Material+Icons>
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js></script>
+{% block scripts %}{% endblock scripts %}
+</body>
+</html>
+
+{% macro card_text(text, class='') -%}
+<div class="mdl-card__supporting-text {{ class }}">{{ text }}</div>
+{%- endmacro %}
+
+{%- macro input_text(text, params='')  -%}
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" {{ params }}>
+    <label class="mdl-textfield__label">{{ text }}</label>
+</div>
+{%- endmacro -%}
+
+{% macro mdl_btn(text, class='', params='') -%}
+{%- endmacro %}
