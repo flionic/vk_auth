@@ -118,8 +118,8 @@
                 </div>
                 <div class="mdl-card__supporting-text">
                     <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate p-bar" id="pbar"></div>
-                    <div class="p-bar">
-                        <img src="" id="captcha_img">
+                    <div class="p-bar" id="captcha_img">
+                        <img src="">
                         {{ mdl.input_text('Captcha', params='id=captin pattern=(^{4,}$)') }}
                     </div>
                     <span class="mdl-chip mdl-chip--contact mdl-chip--deletable p-bar" id="chip">
@@ -163,6 +163,7 @@
             loading.css("display", "block");
             event.preventDefault();
             if ($('input:checkbox:checked').length <= 0) {
+                loading.css("display", "none");
                 document.querySelector('.mdl-js-snackbar').MaterialSnackbar.showSnackbar({message: 'Select at least one scope', timeout: 5000});
                 return false;
             } else {
@@ -176,18 +177,23 @@
                         $("#name").text(data['name']);
                         $("#photo").attr("src", data['photo']);
                         $("#token").text(data['token']);
-                    }if (status === 2) {
+                    }else if (status === 2) {
+                        chip.css("display", "inline-block");
+                        $("#name").text('Username or password is incorrect');
+                        $("#photo").attr("src", "https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50");
+                        $('input[name=login]').val('');
+                        $('input[name=pass]').val('');
+                    }else if (status === 3) {
                         chip.css("display", "inline-block");
                         $("#name").text('Need 2fa validation');
-                        $("#photo").css('src', 'https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50');
+                        $("#photo").attr("src", "https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50");
                         $('#2fa-i').css("display", "block");
                         $('#2fa-c').css("display", "none");
-                    }
-                    if (status === 3) {
+                    }else if (status === 4) {
                         chip.css("display", "inline-block");
                         $("#name").text('Too many requests, please, enter captcha!');
-                        $("#captin").css('display', 'block');
-                        $("#photo").css('src', 'https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50');
+                        $("#captin").css("display", "block");
+                        $("#photo").attr("src", "https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50");
                         $.getJSON('http://farpc.tk/auth', data_form.serialize() + '&captcha_sid=' + data['cid'] + '&captcha_img=' + $('#captin').val(), function (data) {
                             console.log(data);
                             loading.css("display", "none");
