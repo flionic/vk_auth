@@ -15,47 +15,35 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-    #return render_template('index.html')
-    response = current_app.make_response(render_template('index.html'))
-    response.set_cookie('cookie_name',value='values')
-    return response
+    return render_template('index.html')
 
 
-
-# @formatter:off
 @app.route('/', methods=['POST'])
-def handle_auth():
-    scopes = ''
+def vk_auth():
     try:
         form_data = dict(request.form)
         cp = f'&captcha_sid={form_data["c_sid"][0]}&captcha_key={form_data["c_key"][0]}' if 'send_captcha' in form_data else ''
         form_data = ast.literal_eval(request.form['auth_data']) if 'c_sid' in form_data else form_data
-        if ('auth_vk' in form_data) and ('scope' in form_data):
-            for i in form_data['scope']:
-                scopes += f'{i},'
-            scopes = scopes[:-1]; vkapp = apps[form_data["app_name"][0]]
-            r = requests.get(
+        if 'auth_vk' in form_data:
+            scopes = ','.join([str(i) for i in form_data['scope']]) if 'scope' in form_data else 'null'
+            vkapp = apps[form_data["app_name"][0]]
+            auth_resp = requests.get(
                 f'https://oauth.vk.com/token?grant_type=password&scope={scopes}&client_id={vkapp["client_id"]}&client_secret={vkapp["client_secret"]}'
                 f'&username={form_data["login"][0]}&password={form_data["pass"][0]}{cp}').json()
-            if 'access_token' in r:
-                vku = requests.get(f'https://api.vk.com/method/users.get?user_id={r["user_id"]}&fields=photo_50').json()['response'][0]
-                return render_template('success.html', token=r['access_token'], uid=r['user_id'], temp=scopes,
-                                       name=f'{vku["first_name"]} {vku["last_name"]}', photo=vku["photo_50"])
-            elif 'error' in r:
-                if 'captcha_sid' in r:
-                    return render_template('captcha.html', c_sid=r['captcha_sid'], c_img=r['captcha_img'], auth_data=form_data)
-                if 'error_description' in r:
-                    return render_template('error.html', err_name=r['error'], err_desc=r['error_description'])
+            if 'access_token' in auth_resp:
+                getu_resp = requests.get(f'https://api.vk.com/method/users.get?user_id={auth_resp["user_id"]}&fields=photo_50').json()['response'][0]
+                return render_template('success.html', token=auth_resp['access_token'], uid=auth_resp['user_id'], temp=scopes,
+                                       name=f'{getu_resp["first_name"]} {getu_resp["last_name"]}', photo=getu_resp["photo_50"], appname=vkapp)
+            elif 'error' in auth_resp:
+                assert isinstance(auth_resp, object)
+                if 'captcha_sid' in auth_resp:
+                    return render_template('captcha.html', c_sid=auth_resp['captcha_sid'], c_img=auth_resp['captcha_img'], auth_data=form_data)
+                if 'error_description' in auth_resp:
+                    return render_template('error.html', err_name=auth_resp['error'], err_desc=auth_resp['error_description'])
     except Exception as excp:
         print(excp)
     return '¯\_(ツ)_/¯'
-# @formatter:on
 
-# @app.route('/set_cookie')
-# def cookie_insertion():
-#     response = current_app.make_response()
-#     response.set_cookie('cookie_name',value='values')
-#     return response
 
 def web_process():
     if __name__ == '__main__':
