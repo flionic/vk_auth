@@ -35,7 +35,6 @@ def vk_auth():
                 return render_template('success.html', token=auth_resp['access_token'], uid=auth_resp['user_id'], temp=scopes,
                                        name=f'{getu_resp["first_name"]} {getu_resp["last_name"]}', photo=getu_resp["photo_50"], appname=vkapp)
             elif 'error' in auth_resp:
-                assert isinstance(auth_resp, object)
                 if 'captcha_sid' in auth_resp:
                     return render_template('captcha.html', c_sid=auth_resp['captcha_sid'], c_img=auth_resp['captcha_img'], auth_data=form_data)
                 if 'error_description' in auth_resp:
