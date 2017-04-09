@@ -41,9 +41,7 @@ def vk_auth():
                 if 'error_description' in auth_resp:
                     return render_template('error.html', err_name=auth_resp['error'], err_desc=auth_resp['error_description'])
     except Exception as excp:
-        print(excp)
-    return '¯\_(ツ)_/¯'
-
+        return f'¯\_(ツ)_/¯ <br> {excp}'
 
 def web_process():
     if __name__ == '__main__':
