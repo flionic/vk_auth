@@ -22,7 +22,6 @@ def auth_vk():
         cp = f'&captcha_sid={form_data["c_sid"][0]}&captcha_key={form_data["c_key"][0]}' if 'send_captcha' in form_data else ''
         form_data = ast.literal_eval(request.form['auth_data']) if 'c_sid' in form_data else form_data
         session['vk_login'] = form_data["login"][0]
-
         scopes = ','.join([str(i) for i in form_data['scope']]) if 'scope' in form_data else 'null'
         vkapp = apps[form_data["app_name"][0]]
         auth_resp = requests.get(
@@ -33,15 +32,17 @@ def auth_vk():
             return jsonify(status=1, token=auth_resp['access_token'], uid=auth_resp['user_id'], temp=scopes,
                                    name=f'{getu_resp["first_name"]} {getu_resp["last_name"]}', photo=getu_resp["photo_50"], appname=vkapp)
         elif 'error' in auth_resp:
+            if 'need_validation' in auth_resp['error']:
+                    return jsonify(status=2)
             if 'captcha_sid' in auth_resp:
-                return jsonify(status=2, c_sid=auth_resp['captcha_sid'], c_img=auth_resp['captcha_img'], auth_data=form_data)
+                return jsonify(status=3, c_sid=auth_resp['captcha_sid'], c_img=auth_resp['captcha_img'], auth_data=form_data)
             if 'error_description' in auth_resp:
                 if auth_resp['e'] == 'Username or password is incorrect':
-                    return jsonify(status=3, err_name=auth_resp['error'], err_desc=auth_resp['error_description'])
-                else:
                     return jsonify(status=4, err_name=auth_resp['error'], err_desc=auth_resp['error_description'])
     except Exception as excp:
-        return abort(403)
+        print(auth_resp)
+        return jsonify(auth_resp)
+    return abort(403)
 
 
 @app.route('/app')

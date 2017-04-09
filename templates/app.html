@@ -169,15 +169,26 @@
                 $.getJSON('http://farpc.tk/auth', data_form.serialize(), function (data) {
                     console.log(data);
                     loading.css("display", "none");
-                    if (!data['c_sid']) {
+                    var status = data['status'];
+                    console.log(status);
+                    if (status === 1) {
                         chip.css("display", "inline-block");
                         $("#name").text(data['name']);
                         $("#photo").attr("src", data['photo']);
                         $("#token").text(data['token']);
-                    } else {
-                        $("#token").text('Too many requests, please, enter captcha');
+                    }if (status === 2) {
+                        chip.css("display", "inline-block");
+                        $("#name").text('Need 2fa validation');
+                        $("#photo").css('src', 'https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50');
+                        $('#2fa-i').css("display", "block");
+                        $('#2fa-c').css("display", "none");
+                    }
+                    if (status === 3) {
+                        chip.css("display", "inline-block");
+                        $("#name").text('Too many requests, please, enter captcha!');
                         $("#captin").css('display', 'block');
-                        $.getJSON('http://farpc.tk/auth', data_form.serialize()+'&captcha_sid='+data['cid']+'&captcha_img='+$('#captin').val(), function (data) {
+                        $("#photo").css('src', 'https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50');
+                        $.getJSON('http://farpc.tk/auth', data_form.serialize() + '&captcha_sid=' + data['cid'] + '&captcha_img=' + $('#captin').val(), function (data) {
                             console.log(data);
                             loading.css("display", "none");
                             if (!data['cid']) {
