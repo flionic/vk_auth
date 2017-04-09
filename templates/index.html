@@ -34,7 +34,7 @@
                         <div class="mdl-card__supporting-text">This app requesting token from official mobile clients</div>
                         <div class="mdl-card__supporting-text text_input">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" name="login" id="inp_log" required>
+                                <input class="mdl-textfield__input" type="text" name="login" id="inp_log" pattern="(^[0-9]{10,15}$)|(^.+@.+\..{2,}$)" required>
                                 <label class="mdl-textfield__label" for="inp_log">Phone or email</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
