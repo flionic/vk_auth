@@ -152,11 +152,7 @@
 <script>
     $('form').submit(function (event) {
         if ($('input:checkbox:checked').length <= 0) {
-            document.querySelector('.mdl-js-snackbar').MaterialSnackbar.showSnackbar({
-                message: 'Select at least one scope',
-                timeout: 5000,
-                actionText: 'Get anyway'
-            });
+            document.querySelector('.mdl-js-snackbar').MaterialSnackbar.showSnackbar({message: 'Select at least one scope', timeout: 5000});
             event.preventDefault();
             return
         }
