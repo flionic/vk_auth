@@ -96,29 +96,29 @@
                     <div class="mdl-grid">
                         <div class="mdl-cell--4-col">
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                                <input type="radio" id="option-1" name="app_name" value="android"
+                                <input type="radio" tabindex="999" id="option-1" name="app_name" value="android"
                                        class="mdl-radio__button" checked>
                                 <span class="mdl-radio__label">Android</span>
                             </label>
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                <input type="radio" id="option-2" name="app_name" value="iphone"
+                                <input type="radio" tabindex="999" id="option-2" name="app_name" value="iphone"
                                        class="mdl-radio__button">
                                 <span class="mdl-radio__label">iPhone</span>
                             </label>
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-                                <input type="radio" id="option-3" class="mdl-radio__button" name="app_name"
+                                <input type="radio" tabindex="999" id="option-3" class="mdl-radio__button" name="app_name"
                                        value="ipad">
                                 <span class="mdl-radio__label">iPad</span>
                             </label>
                         </div>
                         <div class="mdl-cell--4-col">
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-4">
-                                <input type="radio" id="option-4" class="mdl-radio__button" name="app_name"
+                                <input tabindex="999" type="radio" id="option-4" class="mdl-radio__button" name="app_name"
                                        value="windowsphone">
                                 <span class="mdl-radio__label">WindowsPhone</span>
                             </label>
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-5">
-                                <input type="radio" id="option-5" class="mdl-radio__button" name="app_name"
+                                <input tabindex="999" type="radio" id="option-5" class="mdl-radio__button" name="app_name"
                                        value="windows">
                                 <span class="mdl-radio__label">Windows</span>
                             </label>
@@ -132,7 +132,7 @@
                             </label>
                         </div>
                         <div class="mdl-cell--4-col p-bar" id="2fa-i">
-                            <input type="hidden" name="2fa_supported=1">
+                            <input type="hidden" name="2fa_supported" value="1">
                             {{ mdl.input_text('2FA Code', params='name=code pattern=(^[0-9]{6}$)') }}
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                     <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate p-bar" id="pbar"></div>
                     <div class="p-bar" id="captcha_img">
                         <img src="">
-                        {{ mdl.input_text('Captcha', params='id=captin pattern=(^{4,}$)') }}
+                        {{ mdl.input_text('Captcha', params='name=captcha id=captin pattern=(^{4,}$)') }}
                     </div>
                     <span class="mdl-chip mdl-chip--contact mdl-chip--deletable p-bar" id="chip">
                         <img class="mdl-chip__contact" id="photo" src="">
@@ -211,6 +211,13 @@
                         $('#2fa-i').css("display", "block");
                         $('#2fa-c').css("display", "none");
                     } else if (status === 4) {
+                        chip.css("display", "inline-block");
+                        $("#name").text('Incorrect 2fa key');
+                        $('input[name=code]').val('');
+                        $("#photo").attr("src", "https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50");
+                        $('#2fa-i').css("display", "block");
+                        $('#2fa-c').css("display", "none");
+                    } else if (status === 5) {
                         chip.css("display", "inline-block");
                         $("#name").text('Too many requests, please, enter captcha!');
                         $("#captin").css("display", "block");
