@@ -137,8 +137,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="mdl-card__supporting-text">
+                <div class="mdl-card__supporting-text" id="sys">
                     <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate p-bar" id="pbar"></div>
+                    <div class="text-wrap"><span class="typo-styles__name" id="token">Your token will not be saved or used by me</span></div>
                     <div class="p-bar" id="captcha_img">
                         <img src="">
                         {{ mdl.input_text('Captcha', params='name=captcha id=captin pattern=(^{4,}$)') }}
@@ -148,8 +149,6 @@
                         <span class="mdl-chip__text" id="name"></span>
                         <a href="#" id="del_chip" class="mdl-chip__action"><i class="material-icons">cancel</i></a>
                     </span>
-                </div>
-                <div class="mdl-card__supporting-text"><span class="typo-styles__name" id="token">Your token will not be saved or used by me</span>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
                     <button type="submit" name="auth_vk" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Get Token</button>
@@ -217,6 +216,10 @@
                         $("#photo").attr("src", "https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50");
                         $('#2fa-i').css("display", "block");
                         $('#2fa-c').css("display", "none");
+                    } else if (status === 6) {
+                        chip.css("display", "inline-block");
+                        $("#name").text(data['err_desc']);
+                        $("#photo").attr("src", "https://poppin.imgix.net/products/swatch/swatch_red.jpg?w=50&h=50");
                     } else if (status === 5) {
                         chip.css("display", "inline-block");
                         $("#name").text('Too many requests, please, enter captcha!');

@@ -24,4 +24,10 @@ body {
     display: none;
 }
 
-#2fa
+#token {
+    word-wrap: break-word;
+}
+
+.text-wrap {
+    padding-bottom: 8px;
+}
