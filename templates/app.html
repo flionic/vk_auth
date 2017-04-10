@@ -124,6 +124,8 @@
                             </label>
                         </div>
                     </div>
+                </div>
+                <div class="mdl-card__supporting-text">
                     <div class="mdl-grid">
                         <div class="mdl-cell--4-col" id="2fa-c">
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cb2fa">
@@ -187,7 +189,7 @@
                 document.querySelector('.mdl-js-snackbar').MaterialSnackbar.showSnackbar({message: 'Select at least one scope', timeout: 5000});
                 return false;
             } else {
-                $.getJSON('http://farpc.tk/auth', data_form.serialize(), function (data) {
+                $.getJSON('/auth', data_form.serialize(), function (data) {
                     console.log(data);
                     loading.css("display", "none");
                     var status = data['status'];
