@@ -12,8 +12,10 @@ apps = {'android': {'client_id': '2274003', 'client_secret': 'hHbZxrka2uZ6jB1inY
 
 app = Flask(__name__)
 
+
 @app.route('/auth')
 def auth_vk():
+    print(request)
     if len(request.args) == 0:
         return abort(403)
     try:
@@ -31,26 +33,22 @@ def auth_vk():
         if 'access_token' in auth_resp:
             getu_resp = requests.get(f'https://api.vk.com/method/users.get?user_id={auth_resp["user_id"]}&fields=photo_50').json()['response'][0]
             return jsonify(status=1, token=auth_resp['access_token'], uid=auth_resp['user_id'], temp=scopes,
-                                   name=f'{getu_resp["first_name"]} {getu_resp["last_name"]}', photo=getu_resp["photo_50"])
+                           name=f'{getu_resp["first_name"]} {getu_resp["last_name"]}', photo=getu_resp["photo_50"])
         elif 'error' in auth_resp:
+            errors = {'invalid_client': '2', 'need_validation': '3', 'invalid_request': '4', 'captcha_sid': '5', 'error_description': '6'}
             if 'invalid_client' in auth_resp['error']:
                 return jsonify(status=2)
-            if 'need_validation' in auth_resp['error']:
+            elif 'need_validation' in auth_resp['error']:
                 return jsonify(status=3)
-            if 'invalid_request' in auth_resp['error'] and auth_resp['error_description'] == 'wrong code':
+            elif 'invalid_request' in auth_resp['error'] and auth_resp['error_description'] == 'wrong code':
                 return jsonify(status=4)
-            if 'captcha_sid' in auth_resp:
+            elif 'captcha_sid' in auth_resp:
                 return jsonify(status=5, c_sid=auth_resp['captcha_sid'], c_img=auth_resp['captcha_img'], auth_data=form_data)
-            if 'error_description' in auth_resp:
+            elif 'error_description' in auth_resp:
                 return jsonify(status=6, err_name=auth_resp['error'], err_desc=auth_resp['error_description'])
     except Exception as excp:
         return jsonify(exception=excp)
     return abort(403)
-
-
-@app.route('/app')
-def index():
-    return render_template('app_test.html')
 
 
 @app.route('/', methods=['GET'])
@@ -62,7 +60,7 @@ def web_process():
     if __name__ == '__main__':
         app.jinja_env.line_statement_prefix = '%'
         app.jinja_env.add_extension('jinja2.ext.do')
-        app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+        app.secret_key = os.environ.get('SECRET_KEY')
         app.run(debug=True, host=os.environ.get('address', '0.0.0.0'), port=int(os.environ.get('PORT', 80)))
 
 
