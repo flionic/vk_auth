@@ -21,7 +21,6 @@ def auth_vk():
         form_data = dict(request.args)
         cp = f'&captcha_sid={form_data["c_sid"][0]}&captcha_key={form_data["c_key"][0]}' if 'send_captcha' in form_data else ''
         twofa = f'&2fa_supported=1&code={form_data["code"][0]}' if ('code' in form_data) and (len(form_data['code']) > 0) else ''
-        print(f'2fa {twofa}')
         form_data = ast.literal_eval(request.form['auth_data']) if 'c_sid' in form_data else form_data
         session['vk_login'] = form_data["login"][0]
         scopes = ','.join([str(i) for i in form_data['scope']]) if 'scope' in form_data else 'null'
@@ -29,14 +28,11 @@ def auth_vk():
         auth_resp = requests.get(
             f'https://oauth.vk.com/token?grant_type=password&scope={scopes}&client_id={vkapp["client_id"]}&client_secret={vkapp["client_secret"]}'
             f'&username={form_data["login"][0]}&password={form_data["pass"][0]}{cp}{twofa}').json()
-        print(f'https://oauth.vk.com/token?grant_type=password&scope={scopes}&client_id={vkapp["client_id"]}&client_secret={vkapp["client_secret"]}'
-            f'&username={form_data["login"][0]}&password={form_data["pass"][0]}{cp}{twofa}')
         if 'access_token' in auth_resp:
             getu_resp = requests.get(f'https://api.vk.com/method/users.get?user_id={auth_resp["user_id"]}&fields=photo_50').json()['response'][0]
             return jsonify(status=1, token=auth_resp['access_token'], uid=auth_resp['user_id'], temp=scopes,
                                    name=f'{getu_resp["first_name"]} {getu_resp["last_name"]}', photo=getu_resp["photo_50"])
         elif 'error' in auth_resp:
-            print(auth_resp)
             if 'invalid_client' in auth_resp['error']:
                 return jsonify(status=2)
             if 'need_validation' in auth_resp['error']:
